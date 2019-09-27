@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock, Paper, Scissors,SHOOT</title>        
+    </head>
+    <body>
+        <head>Ready? Let's Play!</head>
+        <div>
+            <button id="rock">rock</button>
+            <button id="paper">paper</button>
+            <button id="scissors">scissors</button>
+        </div>
+        <script>
+                var rock = 0;
+                var paper = 1;
+                var scissors = 2;
+
+                var play = function(choice) { 
+                    var outcome = Math.floor(Math.random(2));
+                    if(outcome == choice){
+                        document.getElementsByTagName("div").innerHTML = "<h1>Draw<h1>";
+                    }
+                    if((outcome == 0 && choice == 2) || (outcome == 1 && choice == 0) || (outcome == 2 && choice == 1)){
+                        document.getElementsByTagName("div").innerHTML = "<h1>You Lose<h1>";
+                    }
+                    if((outcome == 2 && choice == 0) || (outcome == 0 && choice == 1) || (outcome == 1 && choice == 2)){
+                        document.getElementsByTagName("div").innerHTML = "<h1>Winner!<h1>";
+                    }
+                };
+                
+                document.getElementById("rock").addEventListener("click", play(rock));
+                document.getElementById("paper").addEventListener("click", play(paper));
+                document.getElementById("scissors").addEventListener("click", play(scissors));                           
+                
+            </script>
+    </body>
+</html>
