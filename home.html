@@ -1,84 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Rock, Paper, Scissors,SHOOT</title>  
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <title>Rock, Paper, Scissors, SHOOT</title>
+        <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <script src="index.js"></script>         
     </head>
+
     <body>
-        <form onSubmit="JavaScript:playRound()">
+        <form>
             <h1>Rock, Paper, or Scissors?</h1>
             <input id="playerSelection" type="text">
             <input value="Play" type="button" onClick="JavaScript:playRound()">
-        </form>
-        <div id="result"></div>
-        
-        <script>
-            var computerPlay = function(){
-                var play = Math.floor(Math.random() * 3);
-                switch(play){
-                    case 0: play = "ROCK"; break;
-                    case 1: play = "PAPER"; break;
-                    case 2: play = "SCISSORS"; break;
-                }
-                return play;
-            }
-
-            var playRound = function(){
-                var cpu = computerPlay();
-                var player = document.getElementById("playerSelection").value.toUpperCase();
-                var result = "";
-
-                //Game Logic
-                switch(player){
-                    default:
-                        result = "Bad input";
-                        break;
-                    case "ROCK":
-                        switch(cpu){
-                            case "ROCK":
-                                result = "Rock against rock; it's a tie game, try again";
-                                break;
-                            case "PAPER":
-                                result = "Paper beats rock, yeah I don't get it either. You lose.";
-                                break;
-                            case "SCISSORS":
-                                result = "Rock beats scissors, winner!";
-                                break;
-                        }
-                        break;
-                    case "PAPER":
-                        switch(cpu){
-                            case "ROCK":
-                                result = "Paper beats rock! Don't question it, you win!!";
-                                break;
-                            case "PAPER":
-                                result = "Any more paper and we'd have a small pamplet. It's a tie";
-                                break;
-                            case "SCISSORS":
-                                result = "Your paper got sliced. You lose. ";
-                                break;
-                        }
-                        break;
-                    case "SCISSORS":
-                        switch(cpu){
-                            case "ROCK":
-                                result = "A rock smashed your scissors. You lose.";
-                                break;
-                            case "PAPER":
-                                result = "Snippity dippity. You have the victory";
-                                break;
-                            case "SCISSORS":
-                                result = "Tie game, better look away.";
-                                break;
-                        }                     
-                    
-
-                }
-                
-                document.getElementById("result").innerHTML = result;
-                
-            }
-            
-        </script>
+        </form>        
+        <div id="result"></div>        
     </body>
 </html>
