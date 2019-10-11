@@ -4,7 +4,10 @@
 
 */
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
+import { Helmet } from 'react-helmet'
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom"
 
 class Score extends React.Component{
   state = {
@@ -12,36 +15,71 @@ class Score extends React.Component{
     cpuScore :0
   }
   
-  addWin = () => this.setState(this.state.playerScore + 1);
-  addLoss = () => this.setState(this.state.cpuScore + 1);
+  addWin = () => this.setState({playerScore: this + 1});
+  addLoss = () => this.setState({cpuScore: this + 1});
   getPlayerScore = () => {return this.state.playerScore}
   getCpuScore = () => {return this.state.cpuScore}
   
   render(){
-    return <div>Player: {this.getPlayerScore()} Computer: {this.getCpuScore()}</div>;
+    return <div className="Score">Player: {this.getPlayerScore()} Computer: {this.getCpuScore()}</div>;
   }
 }
 
-class Player extends React.Component {
-  score = new Score();  
-  render(){
-    return (
-      <>
-        <div className="Player">
-          <Score />
-          <img src="../images/Full_Icon.png" alt="Click to Play"/>
-        </div>
-      </>
-    );
-  }
-}
-
-function App() {
+function TitleScreen() {
   return (
-    <div className="App">        
-        <Player />
-    </div>
-  ); 
+    <>  
+      <Helmet><title>Rock Paper Scissors</title></Helmet>      
+      <div className="TitleScreen">
+        <h1>Rock Paper Scissors</h1>
+        <Link to="/play"><button id="playButton" >Play</button></Link>
+      </div>          
+    </>
+  );
 }
+
+function NewGame() {  
+  return (
+    <>
+      <Score />
+      <div className="Player" style={{backgroundImage:"#"}}></div>          
+    </>
+  );
+}
+
+function Result() {
+  
+}
+
+function Stats() {
+
+}
+
+
+
+function App() {  
+  return (
+    <>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <TitleScreen />
+        </Route>
+        <Route path="/play">
+          <NewGame />
+        </Route>
+        <Route path="/result">
+          <Result />
+        </Route>
+        <Route path="/stats">
+          <Stats />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+    </>
+  )  
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
 
 export default App;
