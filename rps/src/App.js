@@ -24,7 +24,7 @@ function TitleScreen() {
 
 //
 
-function PlayRound() {         
+function PlayRound() {     
   return (
     <>      
       <div className="Game">
@@ -50,73 +50,85 @@ function PlayRound() {
 class Result extends React.Component {
   constructor() {
     super();
-    this.state = {cpu: "", player: "", result: ""}
+    this.state = {"cpu": "", "player": "", "result": ""}
   }
-  computerPlay = () => {
-    let play = Math.floor(Math.random() * 3);
-    switch(play){
+
+  componentDidMount() {
+    fetch("/play")
+      .then(player => this.setState({ player }));
+
+    let computerPlay = () => {
+      let play = Math.floor(Math.random() * 3);
+      switch(play){
         case 0: play = "ROCK"; break;
         case 1: play = "PAPER"; break;
         case 2: play = "SCISSORS"; break;
-        default: console.log("Error");
+        default: console.log("Error computerPlay returned: " + play);
+      }
+      this.setState({cpu: play});
     }
-    this.setState({cpu: play});
-  } 
-  
-  
-  playRound = function(){
-    //Game Logic
-    switch(this.state.player){
-        case "ROCK":
-            switch(this.state.cpu){
-                case "ROCK":
-                    this.setState({result: "Rock against rock; it's a tie game, try again"});
-                    break;
-                case "PAPER":
-                    this.setState({result: "Paper beats rock, yeah I don't get it either. You lose though."});
-                    break;
-                case "SCISSORS":
-                    this.setState({result: "Rock beats scissors, winner!"});
-                    break;
-            }
-            break;
-        case "PAPER":
-            switch(this.state.cpu){
-                case "ROCK":
-                    this.setState({result: "Paper beats rock! Don't question it, you win!!"});
-                    break;
-                case "PAPER":
-                    this.setState({result: "Any more paper and we'd have a small pamplet. It's a tie"});
-                    break;
-                case "SCISSORS":
-                    this.setState({result: "Your paper got sliced. You lose. "});
-                    break;
-            }
-            break;
-        case "SCISSORS":
-            switch(this.state.cpu){
-                case "ROCK":
-                  this.setState({result: "A rock smashed your scissors. You lose."});
-                  break;
-                case "PAPER":
-                  this.setState({result: "Snippity dippity. You have the victory"});
-                  break;
-                case "SCISSORS":
-                  this.setState({result: "Tie game, better look away."});
-                  break;
-            }                     
-            break;
-          default:
-              console.log("Error");
+
+    let playRound = () => {      
+      switch(this.state.player){
+          case "ROCK":
+              switch(this.state.cpu){
+                  case "ROCK":
+                      this.setState({result: "Rock against rock; it's a tie game, try again"});
+                      break;
+                  case "PAPER":
+                      this.setState({result: "Paper beats rock, yeah I don't get it either. You lose though."});
+                      break;
+                  case "SCISSORS":
+                      this.setState({result: "Rock beats scissors, winner!"});
+                      break;
+              }
               break;
-            
-      }   
+          case "PAPER":
+              switch(this.state.cpu){
+                  case "ROCK":
+                      this.setState({result: "Paper beats rock! Don't question it, you win!!"});
+                      break;
+                  case "PAPER":
+                      this.setState({result: "Any more paper and we'd have a small pamplet. It's a tie"});
+                      break;
+                  case "SCISSORS":
+                      this.setState({result: "Your paper got sliced. You lose. "});
+                      break;
+              }
+              break;
+          case "SCISSORS":
+              switch(this.state.cpu){
+                  case "ROCK":
+                    this.setState({result: "A rock smashed your scissors. You lose."});
+                    break;
+                  case "PAPER":
+                    this.setState({result: "Snippity dippity. You have the victory"});
+                    break;
+                  case "SCISSORS":
+                    this.setState({result: "Tie game, better look away."});
+                    break;
+              }                     
+              break;
+            default:
+                console.log("Error");
+                break;
+                    
+              }   
+          }
+    computerPlay();
+    playRound();
   }
+          
+          
+    
+          
+
   render() { 
-    console.log(this.state.player + " " + this.state.cpu);
+    console.log(this.state.player);
+    let result = this.state.result;
     return (
       <>
-        <div className="Result">{this.playRound()}</div>      
+        <div className="Result">{result}</div>      
       </>
     );
   }  
